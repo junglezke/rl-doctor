@@ -1,7 +1,7 @@
 """Drop-in callback for TRL / any HuggingFace ``Trainer``.
 
     from trl import GRPOTrainer
-    from rldoctor.integrations.trl import RLDoctorCallback
+    from rl_doctor.integrations.trl import RLDoctorCallback
 
     trainer = GRPOTrainer(..., callbacks=[RLDoctorCallback()])
 
@@ -9,7 +9,7 @@ That is the whole integration. The callback reads the metrics TRL already logs
 -- including ``frac_reward_zero_std``, which is exactly the degenerate-group
 rate -- so nothing extra needs instrumenting.
 
-``transformers`` is imported lazily so that ``rldoctor`` stays installable in
+``transformers`` is imported lazily so that ``rl-doctor`` stays installable in
 an environment that has never heard of it.
 """
 
@@ -31,13 +31,13 @@ except ImportError:  # pragma: no cover
         """Stand-in so this module imports without `transformers` installed.
 
         Subclassing the real base when it exists keeps any `isinstance` check
-        inside the Trainer happy; falling back to a stub keeps `rldoctor`
+        inside the Trainer happy; falling back to a stub keeps `rl-doctor`
         importable in environments that have never installed transformers.
         """
 
 
 class RLDoctorCallback(_TrainerCallback):
-    """Live rldoctor diagnosis attached to a HuggingFace training loop.
+    """Live rl-doctor diagnosis attached to a HuggingFace training loop.
 
     Args:
         check_every: how many logged steps between diagnoses.
@@ -73,7 +73,7 @@ class RLDoctorCallback(_TrainerCallback):
         if not HAVE_TRANSFORMERS:
             raise ImportError(
                 "RLDoctorCallback needs `transformers`. Install it, or drive "
-                "rldoctor.live.LiveMonitor directly from your own training loop."
+                "rl_doctor.live.LiveMonitor directly from your own training loop."
             )
 
     # -- TrainerCallback hooks --------------------------------------------

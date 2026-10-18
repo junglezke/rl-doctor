@@ -1,4 +1,4 @@
-"""Report renderers. Each takes a :class:`~rldoctor.diagnosis.Diagnosis` and returns text."""
+"""Report renderers. Each takes a :class:`~rl_doctor.diagnosis.Diagnosis` and returns text."""
 
 from __future__ import annotations
 

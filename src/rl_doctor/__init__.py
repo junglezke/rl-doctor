@@ -1,15 +1,15 @@
-"""rldoctor -- diagnose why your GRPO/RLVR run is burning GPU-hours without learning.
+"""rl-doctor -- diagnose why your GRPO/RLVR run is burning GPU-hours without learning.
 
 Quick start::
 
-    from rldoctor import diagnose, load_run
+    from rl_doctor import diagnose, load_run
 
     diagnosis = diagnose(load_run("wandb://team/project/run_id"))
     print(diagnosis.headline)
 
 Or from a plain list of the metric dicts your loop already produces::
 
-    from rldoctor import run_from_records, diagnose
+    from rl_doctor import run_from_records, diagnose
 
     diagnose(run_from_records(my_log_rows)).print()
 """
@@ -19,7 +19,7 @@ from .diagnosis import Diagnosis, diagnose
 from .ingest import load_csv, load_json, load_jsonl, load_run, run_from_records
 from .schema import Run, RunConfig
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "Detector",

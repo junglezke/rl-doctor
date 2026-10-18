@@ -1,4 +1,4 @@
-"""Log ingestion: framework logs in, canonical :class:`~rldoctor.schema.Run` out."""
+"""Log ingestion: framework logs in, canonical :class:`~rl_doctor.schema.Run` out."""
 
 from .base import load_csv, load_json, load_jsonl, load_run, run_from_records
 

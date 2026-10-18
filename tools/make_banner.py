@@ -13,9 +13,9 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from ansi2svg import render  # noqa: E402
 
-from rldoctor import diagnose  # noqa: E402
-from rldoctor.report.terminal import render as render_report  # noqa: E402
-from rldoctor.simulate import simulate_run  # noqa: E402
+from rl_doctor import diagnose  # noqa: E402
+from rl_doctor.report.terminal import render as render_report  # noqa: E402
+from rl_doctor.simulate import simulate_run  # noqa: E402
 
 _ANSI = re.compile(r"\033\[[0-9;]*m")
 _SECOND_ITEM = re.compile(r"^\s+2\.\s")
@@ -40,7 +40,7 @@ def main() -> None:
 
     svg = render(
         "\n".join(lines[1:stop]).rstrip(),
-        "rldoctor diagnose wandb://my-team/my-project/3xk91abc",
+        "rl-doctor diagnose wandb://my-team/my-project/3xk91abc",
     )
     out = pathlib.Path(__file__).parent.parent / "docs" / "assets" / "report.svg"
     out.write_text(svg, encoding="utf-8")

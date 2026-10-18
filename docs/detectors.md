@@ -1,13 +1,13 @@
 # Detector reference
 
-Every threshold in `rldoctor` is a module-level constant with a comment explaining the
+Every threshold in `rl-doctor` is a module-level constant with a comment explaining the
 choice. This page collects them in one place, along with the reasoning and the source.
 
 If you disagree with a number, that is a feature: the intent is that you can argue with a
 threshold rather than with the tool. Open an issue with the run that changed your mind.
 
 **A note on all of them:** thresholds are calibrated against documented failure modes,
-against the twelve simulated scenarios in `rldoctor/simulate.py`, and against five public
+against the twelve simulated scenarios in `rl-doctor/simulate.py`, and against five public
 GRPO training logs (see the README). Five runs is enough to have found five real bugs and
 is nowhere near enough to be a calibration set. They remain a starting point informed by
 the literature, and the honest way to use them is as a prompt to look, not as a verdict to
@@ -25,7 +25,7 @@ If every rollout earns the same reward, the centred advantage is exactly zero fo
 of them and that group's contribution to the policy gradient is exactly zero.
 
 **Signal.** Fraction of degenerate groups, `f`. TRL logs it directly as
-`frac_reward_zero_std`. When it is absent, `rldoctor` estimates it from a bounded reward
+`frac_reward_zero_std`. When it is absent, `rl-doctor` estimates it from a bounded reward
 series under a binomial model, `P(degenerate) = p^G + (1-p)^G`, and labels the estimate as
 such. Because rollouts from one prompt are positively correlated, that estimate is a
 *lower* bound — if it already looks bad, reality is worse.
@@ -62,7 +62,7 @@ stops improving — at which point rollouts within a group are near-identical, G
 nothing left to rank, and the remaining budget buys nothing.
 
 **Why a decay threshold does not work.** Entropy always decays, so "entropy has fallen
-X%" fires on every healthy run eventually. `rldoctor` is driven by *arrival time*
+X%" fires on every healthy run eventually. `rl-doctor` is driven by *arrival time*
 instead: how soon entropy reaches the floor, relative to the run length so far.
 
 | condition | severity (reward flat) | severity (reward rising) |
@@ -252,7 +252,7 @@ evidence rather than on a step budget.
 
 ## Adding a detector
 
-One file in `src/rldoctor/detectors/`, one entry in `BUILTIN_DETECTORS`, and one scenario
+One file in `src/rl_doctor/detectors/`, one entry in `BUILTIN_DETECTORS`, and one scenario
 in `simulate.py` with its expected detection recorded in `EXPECTED_DETECTIONS`. If the
 check came out of a real log, add its shape to `tests/test_real_log_shapes.py` too —
 that file exists because real logs have shapes the simulator does not. The

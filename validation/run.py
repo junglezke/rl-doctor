@@ -19,7 +19,7 @@ import time
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "src"))
 
-from rldoctor import Severity, diagnose, load_run  # noqa: E402
+from rl_doctor import Severity, diagnose, load_run  # noqa: E402
 
 
 def main() -> int:

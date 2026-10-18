@@ -1,21 +1,21 @@
-# Contributing to rldoctor
+# Contributing to rl-doctor
 
 ## The most useful thing you can do
 
 **Tell us about a metric key we do not recognise.** Run:
 
 ```bash
-rldoctor diagnose <your run> --verbose
+rl-doctor diagnose <your run> --verbose
 ```
 
 Anything listed under "unrecognised log keys" is a metric we dropped. If one of them is
-something rldoctor should understand, open an issue with the key name, the framework and
+something rl-doctor should understand, open an issue with the key name, the framework and
 version, and what it measures. That is usually a one-line addition to
-`src/rldoctor/aliases.py` and it makes the tool work for everyone on that stack.
+`src/rl_doctor/aliases.py` and it makes the tool work for everyone on that stack.
 
 **Second most useful: a run that produced a wrong verdict.** A false positive is a bug of
 the highest severity in this project — a diagnostic that cries wolf gets uninstalled, and
-then it catches nothing. If rldoctor warned about a run that was fine, or stayed quiet on
+then it catches nothing. If rl-doctor warned about a run that was fine, or stayed quiet on
 a run that was not, please open an issue with the metric log (a CSV of the relevant series
 is plenty) and what actually happened.
 
@@ -23,11 +23,11 @@ is plenty) and what actually happened.
 
 Three files:
 
-1. **`src/rldoctor/detectors/your_check.py`** — subclass `Detector`, set `name`, `title`,
+1. **`src/rl_doctor/detectors/your_check.py`** — subclass `Detector`, set `name`, `title`,
    `requires`, `references`, and implement `run(self, run) -> Finding`. The base class
    validates `requires` before calling you, so the body can assume its inputs exist.
-2. **`src/rldoctor/detectors/__init__.py`** — add the class to `BUILTIN_DETECTORS`.
-3. **`src/rldoctor/simulate.py`** — add a scenario that reproduces the failure, and record
+2. **`src/rl_doctor/detectors/__init__.py`** — add the class to `BUILTIN_DETECTORS`.
+3. **`src/rl_doctor/simulate.py`** — add a scenario that reproduces the failure, and record
    the expected detection in `EXPECTED_DETECTIONS`.
 
 That third step is not optional busywork. It is what makes the check trustworthy: it
@@ -69,7 +69,7 @@ the most useful contributions there is.
 ```bash
 pip install -e ".[dev]"
 pytest
-rldoctor selftest
+rl-doctor selftest
 ruff check src tests
 ```
 

@@ -3,7 +3,17 @@
 All notable changes to this project are documented here. This project follows
 [Semantic Versioning](https://semver.org/).
 
-## [0.1.0] — 2026-10-04
+## [0.2.0] — 2026-10-18
+
+### Changed
+
+- **Renamed from `rldoctor` to `rl-doctor`**: PyPI package `rl-doctor`, import name
+  `rl_doctor`, repository `junglezke/rl-doctor`. The `rldoctor` command still works as a
+  short alias, `RLDOCTOR_ASCII` is still honoured alongside the new `RL_DOCTOR_ASCII`, and
+  `RLDoctorCallback` keeps its name. The companion tool rewardlint is now reward-doctor.
+  No behaviour changes.
+
+## [0.1.0] — 2026-10-04 (published as `rldoctor`)
 
 First public release.
 
@@ -23,7 +33,7 @@ First public release.
 - Terminal (with ASCII fallback), Markdown, JSON and self-contained HTML reports.
 - `LiveMonitor` and `RLDoctorCallback` for in-training diagnosis.
 - Twelve simulated pathology scenarios, doubling as the test suite's detection matrix
-  and as `rldoctor demo` / `rldoctor selftest`.
+  and as `rl-doctor demo` / `rl-doctor selftest`.
 - Native `trainer_state.json` ingestion (every HuggingFace checkpoint ships one) and
   verl's `file` logger format, including `val-core/<source>/<metric>/mean@N` keys.
 - Exactly-zero gradient steps reported as dead updates, and counted as wasted rollouts.

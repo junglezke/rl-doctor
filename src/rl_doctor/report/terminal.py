@@ -56,7 +56,7 @@ _GLYPHS = {
 
 
 def _supports_unicode(stream=None) -> bool:
-    if os.environ.get("RLDOCTOR_ASCII"):
+    if os.environ.get("RL_DOCTOR_ASCII") or os.environ.get("RLDOCTOR_ASCII"):  # old name still honoured
         return False
     stream = stream or sys.stdout
     encoding = getattr(stream, "encoding", None) or ""
@@ -120,7 +120,7 @@ def render(
 
 def _header(diagnosis: Diagnosis, width: int, paint: _Painter, glyph: dict) -> List[str]:
     run = diagnosis.run
-    title = paint("rldoctor", "bold", "cyan") + paint(f" {diagnosis.version}", "dim")
+    title = paint("rl-doctor", "bold", "cyan") + paint(f" {diagnosis.version}", "dim")
     name = paint(run.name, "bold")
     pad = width - _visible_len(title) - _visible_len(name) - 4
     lines = [
@@ -228,7 +228,7 @@ def _footer(diagnosis: Diagnosis, width: int, paint: _Painter, glyph: dict) -> L
         lines.append(
             "  "
             + paint(
-                "If one of those is a metric rldoctor should understand, please open an issue.",
+                "If one of those is a metric rl-doctor should understand, please open an issue.",
                 "dim",
             )
         )

@@ -3,11 +3,11 @@
 Run: python examples/diagnose_your_own_loop.py
 """
 
-from rldoctor import diagnose, run_from_records
+from rl_doctor import diagnose, run_from_records
 
 # Whatever your loop already builds each step. Keys can be your framework's
 # names (verl's `actor/entropy`, TRL's `frac_reward_zero_std`, ...) or your own;
-# rldoctor resolves what it recognises and reports what it does not.
+# rl-doctor resolves what it recognises and reports what it does not.
 history = [
     {
         "step": step,

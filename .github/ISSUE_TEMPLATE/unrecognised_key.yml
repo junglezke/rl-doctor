@@ -1,5 +1,5 @@
 name: Unrecognised metric key
-description: rldoctor --verbose listed a key from your framework that it should understand.
+description: rl-doctor --verbose listed a key from your framework that it should understand.
 labels: [aliases]
 body:
   - type: input

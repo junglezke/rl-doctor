@@ -1,6 +1,6 @@
-"""Turn arbitrary training logs into a canonical :class:`~rldoctor.schema.Run`.
+"""Turn arbitrary training logs into a canonical :class:`~rl_doctor.schema.Run`.
 
-The design constraint is that ``rldoctor`` must be useful on a log someone
+The design constraint is that ``rl-doctor`` must be useful on a log someone
 already has, with no instrumentation added. So the ingest layer accepts:
 
 * a list of per-step dicts (what every training loop already has in hand),
@@ -8,7 +8,7 @@ already has, with no instrumentation added. So the ingest layer accepts:
 * a W&B run URI,
 * a TensorBoard event directory,
 
-and normalises all of them through :mod:`rldoctor.aliases`.
+and normalises all of them through :mod:`rl_doctor.aliases`.
 """
 
 from __future__ import annotations

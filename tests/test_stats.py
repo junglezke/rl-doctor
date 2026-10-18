@@ -5,7 +5,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from rldoctor import stats
+from rl_doctor import stats
 
 
 def test_theil_sen_recovers_a_known_slope():

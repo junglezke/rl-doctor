@@ -1,19 +1,19 @@
 <div align="center">
 
-# rldoctor
+# rl-doctor
 
 **Your GRPO run isn't broken. It's dead, and still logging.**
 
-Point `rldoctor` at a training log and it tells you which failure you have, how much
+Point `rl-doctor` at a training log and it tells you which failure you have, how much
 it has cost you so far, and what to change.
 
-[![CI](https://github.com/junglezke/rldoctor/actions/workflows/ci.yml/badge.svg)](https://github.com/junglezke/rldoctor/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/rldoctor.svg)](https://pypi.org/project/rldoctor/)
-[![Python](https://img.shields.io/pypi/pyversions/rldoctor.svg)](https://pypi.org/project/rldoctor/)
+[![CI](https://github.com/junglezke/rl-doctor/actions/workflows/ci.yml/badge.svg)](https://github.com/junglezke/rl-doctor/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/rl-doctor.svg)](https://pypi.org/project/rl-doctor/)
+[![Python](https://img.shields.io/pypi/pyversions/rl-doctor.svg)](https://pypi.org/project/rl-doctor/)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
 
-<img src="docs/assets/report.svg" alt="rldoctor diagnosing a GRPO run: 75% of rollout compute produced no learning signal" width="100%">
+<img src="docs/assets/report.svg" alt="rl-doctor diagnosing a GRPO run: 75% of rollout compute produced no learning signal" width="100%">
 
 </div>
 
@@ -49,11 +49,12 @@ papers. None of them is packaged as something you can run against your own job.
 No GPUs, no account, no training run:
 
 ```bash
-pip install rldoctor
-rldoctor demo reward_hacking
+pip install rl-doctor
+rl-doctor demo reward_hacking
 ```
 
-Or the latest from `main`: `pip install git+https://github.com/junglezke/rldoctor`.
+Or the latest from `main`: `pip install git+https://github.com/junglezke/rl-doctor`.
+`rldoctor` works as a short alias for the command; it is also the name 0.1.0 shipped under.
 
 ```
    CRIT  Reward-eval divergence (verifier gaming)
@@ -88,26 +89,26 @@ zero gradient. `advantage_collapse` does not just report that number — it sepa
 **all-correct** from **all-wrong**. Same symptom, opposite fix, and the bare fraction
 cannot tell you which one you have.
 
-Twelve scenarios ship with the tool (`rldoctor demo --list`), each reproducing a
+Twelve scenarios ship with the tool (`rl-doctor demo --list`), each reproducing a
 documented failure mode.
 
 ## Point it at a real run
 
 ```bash
 # Nothing to instrument — read a run you already logged
-rldoctor diagnose wandb://my-team/my-project/3xk91abc
+rl-doctor diagnose wandb://my-team/my-project/3xk91abc
 
 # Or a HuggingFace checkpoint, verl's file logger, a TensorBoard directory, a JSONL, a CSV
-rldoctor diagnose ./checkpoint-1200/trainer_state.json
-rldoctor diagnose ./my_project/my_experiment.jsonl     # verl: trainer.logger='["console","file"]'
-rldoctor diagnose ./outputs/grpo-qwen7b/tensorboard
-rldoctor diagnose ./logs/train.jsonl --format html -o report.html
+rl-doctor diagnose ./checkpoint-1200/trainer_state.json
+rl-doctor diagnose ./my_project/my_experiment.jsonl     # verl: trainer.logger='["console","file"]'
+rl-doctor diagnose ./outputs/grpo-qwen7b/tensorboard
+rl-doctor diagnose ./logs/train.jsonl --format html -o report.html
 ```
 
 From Python:
 
 ```python
-from rldoctor import diagnose, load_run
+from rl_doctor import diagnose, load_run
 
 d = diagnose(load_run("wandb://my-team/my-project/3xk91abc"))
 print(d.headline)
@@ -123,7 +124,7 @@ for f in d.problems:
 A post-hoc report tells you that you wasted 40 GPU-hours. A live monitor stops you.
 
 ```python
-from rldoctor.live import LiveMonitor
+from rl_doctor.live import LiveMonitor
 
 monitor = LiveMonitor(config=cfg, check_every=25)
 for step, metrics in training_loop():
@@ -133,7 +134,7 @@ for step, metrics in training_loop():
 On TRL, that is one line:
 
 ```python
-from rldoctor.integrations.trl import RLDoctorCallback
+from rl_doctor.integrations.trl import RLDoctorCallback
 
 trainer = GRPOTrainer(..., callbacks=[RLDoctorCallback(report_path="report.html")])
 ```
@@ -148,21 +149,21 @@ anyone reads the dashboard and well after the onset. Whether scalar training met
 give genuine *early* warning of reward hacking at a usable false-positive rate is an open
 question — independent work proposing onset hooks for verl reports that these signals
 reliably audit hacking after the fact but do not reliably warn ahead of it
-([verl#7004](https://github.com/verl-project/verl/issues/7004)). `rldoctor` does not
+([verl#7004](https://github.com/verl-project/verl/issues/7004)). `rl-doctor` does not
 claim to have solved that.
 
-On **verl**, add the file logger and point `rldoctor` at the result — while the run is
+On **verl**, add the file logger and point `rl-doctor` at the result — while the run is
 going, or afterwards:
 
 ```bash
 python -m verl.trainer.main_ppo ... trainer.logger='["console","file"]'
-rldoctor diagnose ./<project_name>/<experiment_name>.jsonl
+rl-doctor diagnose ./<project_name>/<experiment_name>.jsonl
 ```
 
 ### In CI
 
 ```bash
-rldoctor diagnose ./logs/train.jsonl --fail-on critical --format markdown -o $GITHUB_STEP_SUMMARY
+rl-doctor diagnose ./logs/train.jsonl --fail-on critical --format markdown -o $GITHUB_STEP_SUMMARY
 ```
 
 ## What it checks
@@ -184,7 +185,7 @@ change, with the config key), and **references** (the paper the threshold comes 
 A finding without a suggested change is a complaint, not a diagnosis, and the test suite
 enforces that every warning has one.
 
-Run `rldoctor detectors` for the full list, `rldoctor fields` for the metric aliases.
+Run `rl-doctor detectors` for the full list, `rl-doctor fields` for the metric aliases.
 
 ## It reads the log you already have
 
@@ -196,7 +197,7 @@ producing a worse report. Anything unresolved is reported rather than dropped:
 
 ```
   3 log keys were not recognised: actor/my_custom_metric, ...
-  If one of those is a metric rldoctor should understand, please open an issue.
+  If one of those is a metric rl-doctor should understand, please open an issue.
 ```
 
 Known-good with **verl** (W&B, TensorBoard, or its `file` logger, including
@@ -210,7 +211,7 @@ Point it at a HuggingFace checkpoint's `trainer_state.json` — every `checkpoin
 directory ships one, which makes it the most widely available real training log there is:
 
 ```bash
-rldoctor diagnose ./checkpoint-1200/trainer_state.json
+rl-doctor diagnose ./checkpoint-1200/trainer_state.json
 ```
 
 Run against **five public GRPO checkpoints** (25 to 5,001 logged steps; 1.5s for the
@@ -308,12 +309,12 @@ none:
 
 ## How it relates to other tools
 
-| | what it does | how `rldoctor` differs |
+| | what it does | how `rl-doctor` differs |
 |---|---|---|
 | **W&B / TensorBoard** | shows you the curves | tells you what the curves mean, and what to change |
-| [**RL-Insight**](https://github.com/verl-project/rl-insight) | verl's online observability stack — Prometheus, Grafana, hardware and throughput dashboards | it is infrastructure for *seeing* a run; `rldoctor` is a diagnosis of *what is wrong with it*. Complementary — export to both. |
-| [**Flight Recorder**](https://github.com/Aarav500/flight-recorder) | research prototype for reward-hacking *onset* detection from rollout geometry, hooked into the trainer | narrower and deeper on one question; needs rollout batches. `rldoctor` covers nine failure modes from the scalar log you already have, with no hooks. |
-| Papers ([DAPO](https://arxiv.org/abs/2503.14476), [Clip-Cov / KL-Cov](https://arxiv.org/abs/2505.22617), …) | describe the failures and the fixes | `rldoctor` is the thing that tells you which one you have. Each detector cites the paper its threshold comes from. |
+| [**RL-Insight**](https://github.com/verl-project/rl-insight) | verl's online observability stack — Prometheus, Grafana, hardware and throughput dashboards | it is infrastructure for *seeing* a run; `rl-doctor` is a diagnosis of *what is wrong with it*. Complementary — export to both. |
+| [**Flight Recorder**](https://github.com/Aarav500/flight-recorder) | research prototype for reward-hacking *onset* detection from rollout geometry, hooked into the trainer | narrower and deeper on one question; needs rollout batches. `rl-doctor` covers nine failure modes from the scalar log you already have, with no hooks. |
+| Papers ([DAPO](https://arxiv.org/abs/2503.14476), [Clip-Cov / KL-Cov](https://arxiv.org/abs/2505.22617), …) | describe the failures and the fixes | `rl-doctor` is the thing that tells you which one you have. Each detector cites the paper its threshold comes from. |
 
 ## Design principles
 
@@ -333,33 +334,33 @@ none:
 ## Development
 
 ```bash
-git clone https://github.com/junglezke/rldoctor && cd rldoctor
+git clone https://github.com/junglezke/rl-doctor && cd rl-doctor
 pip install -e ".[dev]"
 pytest                # 143 tests
-rldoctor selftest     # detection matrix across all 12 scenarios
+rl-doctor selftest     # detection matrix across all 12 scenarios
 ruff check src tests
 python tools/make_banner.py   # regenerate the README image
 python validation/fetch.py && python validation/run.py --check   # the real public runs
 ```
 
-`rldoctor selftest` is the honest summary of what the tool can and cannot catch — it runs
+`rl-doctor selftest` is the honest summary of what the tool can and cannot catch — it runs
 every detector against every simulated pathology and prints the matrix, including the
 false-positive check on the healthy run.
 
 ## Contributing
 
 The most valuable contribution is **a metric key we do not recognise**. If
-`rldoctor diagnose --verbose` lists something from your framework, open an issue with the
+`rl-doctor diagnose --verbose` lists something from your framework, open an issue with the
 key name and what it measures — that is a one-line fix that makes the tool work for
 everyone on that stack.
 
 After that: a failure mode you have hit that we do not detect. Adding a detector means
-one file in `src/rldoctor/detectors/` and one scenario in `simulate.py`. See
+one file in `src/rl_doctor/detectors/` and one scenario in `simulate.py`. See
 [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Citing
 
-If `rldoctor` is useful in your work, please cite it — see [CITATION.cff](CITATION.cff).
+If `rl-doctor` is useful in your work, please cite it — see [CITATION.cff](CITATION.cff).
 
 ## License
 

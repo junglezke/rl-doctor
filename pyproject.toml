@@ -3,8 +3,8 @@ requires = ["hatchling>=1.21"]
 build-backend = "hatchling.build"
 
 [project]
-name = "rldoctor"
-version = "0.1.0"
+name = "rl-doctor"
+version = "0.2.0"
 description = "Diagnose why your GRPO/RLVR run is burning GPU-hours without learning."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -49,16 +49,18 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/junglezke/rldoctor"
-Repository = "https://github.com/junglezke/rldoctor"
-Issues = "https://github.com/junglezke/rldoctor/issues"
-Changelog = "https://github.com/junglezke/rldoctor/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/junglezke/rl-doctor"
+Repository = "https://github.com/junglezke/rl-doctor"
+Issues = "https://github.com/junglezke/rl-doctor/issues"
+Changelog = "https://github.com/junglezke/rl-doctor/blob/main/CHANGELOG.md"
 
 [project.scripts]
-rldoctor = "rldoctor.cli:main"
+rl-doctor = "rl_doctor.cli:main"
+# Short alias, and the command this project shipped under as `rldoctor` 0.1.0.
+rldoctor = "rl_doctor.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/rldoctor"]
+packages = ["src/rl_doctor"]
 
 [tool.ruff]
 line-length = 100

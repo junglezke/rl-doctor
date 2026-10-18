@@ -3,12 +3,13 @@ name: Release
 # Publishes to PyPI when a version tag is pushed, using PyPI trusted publishing:
 # no API token is stored anywhere. One-time setup on pypi.org, under
 # "Your projects -> Publishing -> Add a new pending publisher":
-#   PyPI project name: rldoctor
+#   PyPI project name: rl-doctor
 #   Owner:             junglezke
-#   Repository:        rldoctor
+#   Repository:        rl-doctor
 #   Workflow:          release.yml
 #   Environment:       pypi
-# Then:  git tag v0.1.0 && git push origin v0.1.0
+# Then:  git tag vX.Y.Z && git push origin vX.Y.Z  (must match the version in pyproject.toml)
+# 0.1.0 was published as `rldoctor`; from 0.2.0 on, the PyPI project is `rl-doctor`.
 
 on:
   push:
@@ -39,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/project/rldoctor/
+      url: https://pypi.org/project/rl-doctor/
     permissions:
       id-token: write
     steps:

@@ -2,7 +2,7 @@
 
 Different RL frameworks name the same quantity differently (``actor/entropy`` in
 verl, ``entropy`` in TRL, ``policy/entropy`` elsewhere).  Detectors are written
-against the canonical names defined here, and :mod:`rldoctor.aliases` maps
+against the canonical names defined here, and :mod:`rl_doctor.aliases` maps
 framework-specific keys onto them.
 """
 
@@ -88,7 +88,7 @@ CANONICAL_FIELDS: List[str] = [
     NUM_GPUS,
 ]
 
-#: Human-readable descriptions, used by ``rldoctor fields`` and HTML reports.
+#: Human-readable descriptions, used by ``rl-doctor fields`` and HTML reports.
 FIELD_DOCS: Dict[str, str] = {
     REWARD_MEAN: "Mean training reward (post reward-shaping) per step.",
     REWARD_STD: "Std-dev of training reward within the batch.",
@@ -113,7 +113,7 @@ FIELD_DOCS: Dict[str, str] = {
 class RunConfig:
     """Configuration facts about a run that detectors can use for context.
 
-    Every field is optional: ``rldoctor`` must produce a useful report from a
+    Every field is optional: ``rl-doctor`` must produce a useful report from a
     bare metric log with no config attached.
     """
 
@@ -148,7 +148,7 @@ class Run:
     name: str = "run"
     source: str = "unknown"
     #: Framework keys that were present in the log but not mapped to a
-    #: canonical field. Surfaced by ``rldoctor diagnose --verbose`` so users can
+    #: canonical field. Surfaced by ``rl-doctor diagnose --verbose`` so users can
     #: tell us about naming drift instead of silently getting a worse report.
     unmapped_keys: List[str] = field(default_factory=list)
     #: Steps at which a field was logged with a non-finite value, per field.

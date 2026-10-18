@@ -1,5 +1,5 @@
 {
-  "_comment": "Public training logs rldoctor is validated against. Raw logs are downloaded into validation/.cache/ (gitignored) by fetch.py and never committed: they belong to their authors. `expect` pins the verdict at WARNING or above, so a change that alters a real-run verdict fails `python validation/run.py --check`.",
+  "_comment": "Public training logs rl-doctor is validated against. Raw logs are downloaded into validation/.cache/ (gitignored) by fetch.py and never committed: they belong to their authors. `expect` pins the verdict at WARNING or above, so a change that alters a real-run verdict fails `python validation/run.py --check`.",
   "runs": [
     {
       "id": "openthinker3-7b-grpo-de",

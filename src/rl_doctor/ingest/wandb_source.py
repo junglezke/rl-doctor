@@ -1,9 +1,9 @@
 """Load a run straight from Weights & Biases.
 
-This is the zero-instrumentation path: point ``rldoctor`` at a run you already
+This is the zero-instrumentation path: point ``rl-doctor`` at a run you already
 logged and get a diagnosis without touching your training code.
 
-    rldoctor diagnose wandb://my-team/my-project/3xk91abc
+    rl-doctor diagnose wandb://my-team/my-project/3xk91abc
 """
 
 from __future__ import annotations
@@ -29,12 +29,12 @@ def parse_uri(uri: str) -> Dict[str, str]:
 
 
 def load_wandb(uri: str, samples: int = 10_000, api_key: Optional[str] = None):
-    """Fetch a W&B run's history and config as a :class:`~rldoctor.schema.Run`."""
+    """Fetch a W&B run's history and config as a :class:`~rl_doctor.schema.Run`."""
     try:
         import wandb
     except ImportError as exc:  # pragma: no cover - depends on user env
         raise ImportError(
-            "reading W&B runs needs the wandb client: pip install 'rldoctor[wandb]'"
+            "reading W&B runs needs the wandb client: pip install 'rl-doctor[wandb]'"
         ) from exc
 
     parts = parse_uri(uri)

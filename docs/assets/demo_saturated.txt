@@ -1,5 +1,5 @@
 
-  rldoctor 0.1.0                                                  sim:saturated_groups
+  rl-doctor 0.1.0                                                 sim:saturated_groups
   ────────────────────────────────────────────────────────────────────────────────────
   400 steps · 14 metrics · GRPO · Qwen2.5-7B-Instruct · G=8 · 8x H100
 

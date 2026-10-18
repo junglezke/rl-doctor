@@ -1,14 +1,14 @@
-"""Add a project-specific check without forking rldoctor.
+"""Add a project-specific check without forking rl-doctor.
 
 Run: python examples/custom_detector.py
 """
 
 import numpy as np
 
-from rldoctor import Severity, diagnose, register, stats
-from rldoctor.detectors.base import Detector
-from rldoctor.schema import THROUGHPUT, Run
-from rldoctor.simulate import simulate_run
+from rl_doctor import Severity, diagnose, register, stats
+from rl_doctor.detectors.base import Detector
+from rl_doctor.schema import THROUGHPUT, Run
+from rl_doctor.simulate import simulate_run
 
 
 @register
@@ -52,7 +52,7 @@ result = diagnose(simulate_run("healthy", n_steps=300, seed=0))
 finding = result.by_name("throughput_regression")
 print(f"[{finding.severity.label}] {finding.title}: {finding.summary}")
 print("\nregistered detectors:")
-from rldoctor.detectors import available  # noqa: E402
+from rl_doctor.detectors import available  # noqa: E402
 
 for name in available():
     print(" ", name)

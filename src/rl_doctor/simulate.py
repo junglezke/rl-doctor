@@ -5,7 +5,7 @@ This module exists for three reasons:
 1. **Tests need ground truth.** A detector is only trustworthy if we can show it
    fires on the failure it claims to detect and stays quiet on a healthy run.
    Every scenario here has a known label, so the test suite asserts both.
-2. **The demo needs no GPUs.** ``rldoctor demo`` generates a failing run and
+2. **The demo needs no GPUs.** ``rl-doctor demo`` generates a failing run and
    diagnoses it in under a second, so anyone can evaluate the tool before
    deciding whether to point it at a real job.
 3. **False positives are the real risk.** A diagnostic that cries wolf gets
@@ -39,7 +39,7 @@ SCENARIOS = (
 )
 
 #: What each scenario is expected to trigger, used by the test suite and by
-#: ``rldoctor selftest``.
+#: ``rl-doctor selftest``.
 EXPECTED_DETECTIONS: Dict[str, Tuple[str, ...]] = {
     "healthy": (),
     "entropy_collapse": ("entropy_collapse",),
@@ -229,7 +229,7 @@ def _eval_score(scenario: str, p: float, frac: float, eval_gap, rng) -> float:
 
 
 def simulate_run(scenario: str = "healthy", n_steps: int = 400, seed: int = 0, **kwargs):
-    """Convenience wrapper returning a ready :class:`~rldoctor.schema.Run`."""
+    """Convenience wrapper returning a ready :class:`~rl_doctor.schema.Run`."""
     from .ingest.base import run_from_records
 
     records, config = simulate(scenario, n_steps=n_steps, seed=seed, **kwargs)

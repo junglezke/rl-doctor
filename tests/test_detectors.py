@@ -10,9 +10,9 @@ from __future__ import annotations
 
 import pytest
 
-from rldoctor import Severity, diagnose
-from rldoctor.detectors import BUILTIN_DETECTORS, available, build
-from rldoctor.simulate import EXPECTED_DETECTIONS, SCENARIOS, simulate_run
+from rl_doctor import Severity, diagnose
+from rl_doctor.detectors import BUILTIN_DETECTORS, available, build
+from rl_doctor.simulate import EXPECTED_DETECTIONS, SCENARIOS, simulate_run
 
 
 @pytest.mark.parametrize("scenario", [s for s in SCENARIOS if s != "healthy"])
@@ -54,7 +54,7 @@ def test_every_detector_reports_something_on_a_full_log():
 
 
 def test_detectors_skip_gracefully_on_a_sparse_log():
-    from rldoctor import run_from_records
+    from rl_doctor import run_from_records
 
     run = run_from_records([{"step": i, "reward": 0.5} for i in range(30)])
     result = diagnose(run)
@@ -64,7 +64,7 @@ def test_detectors_skip_gracefully_on_a_sparse_log():
 
 
 def test_a_broken_detector_does_not_sink_the_report():
-    from rldoctor.detectors.base import Detector
+    from rl_doctor.detectors.base import Detector
 
     class Exploding(Detector):
         name = "exploding"
@@ -112,7 +112,7 @@ def test_advantage_collapse_distinguishes_too_easy_from_too_hard():
 
 def test_reward_hacking_needs_a_held_out_signal():
     """Without an eval series the check must skip, not guess."""
-    from rldoctor import run_from_records
+    from rl_doctor import run_from_records
 
     run = run_from_records(
         [{"step": i, "reward": i / 100.0, "entropy": 0.5} for i in range(100)]

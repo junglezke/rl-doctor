@@ -1,9 +1,9 @@
 """Command line interface.
 
-    rldoctor diagnose wandb://team/project/run_id
-    rldoctor diagnose ./logs/train.jsonl --format markdown -o report.md
-    rldoctor demo entropy_collapse
-    rldoctor selftest
+    rl-doctor diagnose wandb://team/project/run_id
+    rl-doctor diagnose ./logs/train.jsonl --format markdown -o report.md
+    rl-doctor demo entropy_collapse
+    rl-doctor selftest
 """
 
 from __future__ import annotations
@@ -30,19 +30,19 @@ def _severity_from(name: str) -> Severity:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="rldoctor",
+        prog="rl-doctor",
         description="Diagnose why your GRPO/RLVR run is burning GPU-hours without learning.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=(
             "examples:\n"
-            "  rldoctor diagnose wandb://my-team/my-project/3xk91abc\n"
-            "  rldoctor diagnose ./outputs/run/tensorboard\n"
-            "  rldoctor diagnose train_log.jsonl --format markdown -o report.md\n"
-            "  rldoctor demo reward_hacking\n"
-            "  rldoctor selftest\n"
+            "  rl-doctor diagnose wandb://my-team/my-project/3xk91abc\n"
+            "  rl-doctor diagnose ./outputs/run/tensorboard\n"
+            "  rl-doctor diagnose train_log.jsonl --format markdown -o report.md\n"
+            "  rl-doctor demo reward_hacking\n"
+            "  rl-doctor selftest\n"
         ),
     )
-    parser.add_argument("--version", action="version", version=f"rldoctor {__version__}")
+    parser.add_argument("--version", action="version", version=f"rl-doctor {__version__}")
     sub = parser.add_subparsers(dest="command")
 
     diagnose = sub.add_parser("diagnose", help="diagnose a training run")
@@ -116,7 +116,7 @@ def _cmd_diagnose(args) -> int:
     try:
         run = load_run(args.uri)
     except Exception as exc:
-        print(f"rldoctor: could not load {args.uri}: {exc}", file=sys.stderr)
+        print(f"rl-doctor: could not load {args.uri}: {exc}", file=sys.stderr)
         return 2
     return _run_and_emit(run, args)
 
@@ -131,7 +131,7 @@ def _cmd_demo(args) -> int:
         return 0
     if args.scenario not in SCENARIOS:
         print(
-            f"rldoctor: unknown scenario {args.scenario!r}.\n"
+            f"rl-doctor: unknown scenario {args.scenario!r}.\n"
             f"available: {', '.join(SCENARIOS)}",
             file=sys.stderr,
         )
@@ -158,7 +158,7 @@ def _run_and_emit(run, args) -> int:
             num_gpus=args.num_gpus,
         )
     except KeyError as exc:
-        print(f"rldoctor: {exc}", file=sys.stderr)
+        print(f"rl-doctor: {exc}", file=sys.stderr)
         return 2
 
     if args.format == "terminal" and args.no_color:
@@ -221,7 +221,7 @@ def _cmd_selftest() -> int:
     from .simulate import EXPECTED_DETECTIONS, simulate_run
 
     failures = 0
-    print(f"\nrldoctor {__version__} selftest — {len(EXPECTED_DETECTIONS)} scenarios\n")
+    print(f"\nrl-doctor {__version__} selftest — {len(EXPECTED_DETECTIONS)} scenarios\n")
     for scenario, expected in EXPECTED_DETECTIONS.items():
         run = simulate_run(scenario, n_steps=400, seed=0)
         result = diagnose(run)

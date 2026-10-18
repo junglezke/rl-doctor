@@ -5,7 +5,7 @@ a real ``trainer_state.json`` did. The fixtures reproduce the *shape* of that lo
 rather than shipping someone else's data.
 
 The bug that motivated this file was the expensive kind: a false positive.
-``rldoctor`` reported "4 non-finite gradient norms -- training is numerically
+``rl-doctor`` reported "4 non-finite gradient norms -- training is numerically
 dead from step 305" on a run whose gradient norms were entirely finite. The
 run logged eval metrics on a different cadence from training metrics, so the
 aligned series was padded with `nan` at every eval-only row, and the detector
@@ -18,8 +18,8 @@ import json
 
 import pytest
 
-from rldoctor import Severity, aliases, diagnose, load_run, run_from_records
-from rldoctor import schema as S
+from rl_doctor import Severity, aliases, diagnose, load_run, run_from_records
+from rl_doctor import schema as S
 
 
 def _trl_style_records(n: int = 400, eval_every: int = 50, nan_at=()):

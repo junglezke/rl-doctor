@@ -1,5 +1,5 @@
 name: Wrong verdict
-description: rldoctor said something about your run that is not true -- or missed something that is.
+description: rl-doctor said something about your run that is not true -- or missed something that is.
 labels: [wrong-verdict]
 body:
   - type: markdown

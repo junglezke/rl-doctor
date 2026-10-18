@@ -1,8 +1,8 @@
 """Load a run from TensorBoard event files.
 
-Point ``rldoctor`` at the directory containing ``events.out.tfevents.*``:
+Point ``rl-doctor`` at the directory containing ``events.out.tfevents.*``:
 
-    rldoctor diagnose ./outputs/my-grpo-run/tensorboard
+    rl-doctor diagnose ./outputs/my-grpo-run/tensorboard
 """
 
 from __future__ import annotations
@@ -64,7 +64,7 @@ def _read_scalars_via_accumulator(path: str) -> Dict[str, list]:
     except ImportError as exc:  # pragma: no cover - depends on user env
         raise ImportError(
             "reading TensorBoard logs needs tbparse or tensorboard: "
-            "pip install 'rldoctor[tensorboard]'"
+            "pip install 'rl-doctor[tensorboard]'"
         ) from exc
 
     out: Dict[str, list] = defaultdict(list)

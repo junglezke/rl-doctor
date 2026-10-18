@@ -5,9 +5,9 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from rldoctor import Severity, stats
-from rldoctor.live import LiveMonitor
-from rldoctor.simulate import simulate
+from rl_doctor import Severity, stats
+from rl_doctor.live import LiveMonitor
+from rl_doctor.simulate import simulate
 
 
 def _feed(monitor: LiveMonitor, scenario: str, n_steps: int = 400, seed: int = 0):

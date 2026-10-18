@@ -1,4 +1,4 @@
-"""Map framework-specific metric keys onto :mod:`rldoctor.schema` canonical names.
+"""Map framework-specific metric keys onto :mod:`rl_doctor.schema` canonical names.
 
 Design note
 -----------

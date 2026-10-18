@@ -16,7 +16,7 @@ __all__ = ["Diagnosis", "diagnose"]
 
 @dataclass
 class Diagnosis:
-    """Everything ``rldoctor`` concluded about one run."""
+    """Everything ``rl-doctor`` concluded about one run."""
 
     run: Run
     findings: List[Finding]

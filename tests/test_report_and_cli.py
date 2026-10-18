@@ -6,10 +6,10 @@ import json
 
 import pytest
 
-from rldoctor import Severity, diagnose
-from rldoctor.cli import main
-from rldoctor.report import RENDERERS, render
-from rldoctor.simulate import SCENARIOS, simulate_run
+from rl_doctor import Severity, diagnose
+from rl_doctor.cli import main
+from rl_doctor.report import RENDERERS, render
+from rl_doctor.simulate import SCENARIOS, simulate_run
 
 
 @pytest.fixture(scope="module")
@@ -40,7 +40,7 @@ def test_html_report_is_self_contained(result):
 
 
 def test_terminal_report_has_an_ascii_mode(result):
-    from rldoctor.report.terminal import render as render_terminal
+    from rl_doctor.report.terminal import render as render_terminal
 
     ascii_text = render_terminal(result, color=False, unicode=False)
     ascii_text.encode("ascii")  # must not raise
@@ -81,7 +81,7 @@ def test_informational_commands_exit_zero(argv, capsys):
 
 def test_demo_runs_and_defaults_to_not_failing(capsys):
     assert main(["demo", "healthy", "--steps", "150"]) == 0
-    assert "rldoctor" in capsys.readouterr().out
+    assert "rl-doctor" in capsys.readouterr().out
 
 
 def test_demo_rejects_an_unknown_scenario(capsys):
@@ -97,7 +97,7 @@ def test_fail_on_gates_ci(capsys):
 def test_output_file_is_written(tmp_path, capsys):
     target = tmp_path / "report.md"
     assert main(["demo", "plateau", "-f", "markdown", "-o", str(target)]) == 0
-    assert target.read_text(encoding="utf-8").startswith("## rldoctor report")
+    assert target.read_text(encoding="utf-8").startswith("## rl-doctor report")
 
 
 def test_diagnose_reports_a_bad_path_without_a_traceback(capsys):
@@ -106,7 +106,7 @@ def test_diagnose_reports_a_bad_path_without_a_traceback(capsys):
 
 
 def test_diagnose_reads_a_jsonl_file(tmp_path, capsys):
-    from rldoctor.simulate import simulate
+    from rl_doctor.simulate import simulate
 
     records, config = simulate("kl_blowup", n_steps=200, seed=0)
     path = tmp_path / "run.jsonl"

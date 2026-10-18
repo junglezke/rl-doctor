@@ -5,7 +5,7 @@ you from wasting them. :class:`LiveMonitor` takes the metric dict your training
 loop already builds, and every ``check_every`` steps re-runs the detectors over
 the history so far.
 
-    from rldoctor.live import LiveMonitor
+    from rl_doctor.live import LiveMonitor
 
     monitor = LiveMonitor(config=cfg, check_every=25)
     for step, metrics in training_loop():
@@ -32,7 +32,7 @@ from .detectors.base import Finding, Severity
 from .diagnosis import Diagnosis, diagnose
 from .ingest.base import run_from_records
 
-_LOG = logging.getLogger("rldoctor")
+_LOG = logging.getLogger("rl-doctor")
 
 #: Below this many steps, trend tests have no power and would only produce noise.
 DEFAULT_MIN_STEPS = 60
@@ -92,7 +92,7 @@ class LiveMonitor:
         except Exception as exc:  # pragma: no cover - defensive
             if not self._errored:
                 self._errored = True
-                _LOG.warning("rldoctor live monitoring disabled after an internal error: %s", exc)
+                _LOG.warning("rl-doctor live monitoring disabled after an internal error: %s", exc)
             return []
 
         fresh = []
@@ -109,7 +109,7 @@ class LiveMonitor:
             try:
                 self.on_finding(finding)
             except Exception:  # pragma: no cover - a bad callback is the user's
-                _LOG.exception("rldoctor on_finding callback raised")
+                _LOG.exception("rl-doctor on_finding callback raised")
         return fresh
 
     # -- output ------------------------------------------------------------
@@ -121,7 +121,7 @@ class LiveMonitor:
         if self.latest is None:
             self.check()
         if self.latest is None:
-            return "rldoctor: not enough steps logged to diagnose yet."
+            return "rl-doctor: not enough steps logged to diagnose yet."
         return render(self.latest, fmt)
 
     def save(self, path: str, fmt: str = "html") -> str:

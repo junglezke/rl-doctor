@@ -7,8 +7,8 @@ import json
 import numpy as np
 import pytest
 
-from rldoctor import aliases, load_csv, load_jsonl, load_run, run_from_records
-from rldoctor import schema as S
+from rl_doctor import aliases, load_csv, load_jsonl, load_run, run_from_records
+from rl_doctor import schema as S
 
 
 def test_trl_keys_resolve():
@@ -140,7 +140,7 @@ def test_load_run_reports_a_missing_file():
 
 
 def test_wandb_uri_parsing():
-    from rldoctor.ingest.wandb_source import parse_uri
+    from rl_doctor.ingest.wandb_source import parse_uri
 
     assert parse_uri("wandb://team/proj/abc123") == {
         "entity": "team",
