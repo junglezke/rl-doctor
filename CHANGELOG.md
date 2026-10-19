@@ -7,7 +7,8 @@ All notable changes to this project are documented here. This project follows
 
 ### Changed
 
-- **Renamed from `rldoctor` to `rl-doctor`**: PyPI package `rl-doctor`, import name
+- **Renamed from `rldoctor` to `rl-doctor`**: the PyPI package keeps the name `rldoctor`
+  (PyPI refuses `rl-doctor` as too similar to it), the command is `rl-doctor`, import name
   `rl_doctor`, repository `junglezke/rl-doctor`. The `rldoctor` command still works as a
   short alias, `RLDOCTOR_ASCII` is still honoured alongside the new `RL_DOCTOR_ASCII`, and
   `RLDoctorCallback` keeps its name. The companion tool rewardlint is now reward-doctor.

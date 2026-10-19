@@ -64,7 +64,7 @@ def _read_scalars_via_accumulator(path: str) -> Dict[str, list]:
     except ImportError as exc:  # pragma: no cover - depends on user env
         raise ImportError(
             "reading TensorBoard logs needs tbparse or tensorboard: "
-            "pip install 'rl-doctor[tensorboard]'"
+            "pip install 'rldoctor[tensorboard]'"
         ) from exc
 
     out: Dict[str, list] = defaultdict(list)

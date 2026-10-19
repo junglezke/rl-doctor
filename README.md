@@ -8,8 +8,8 @@ Point `rl-doctor` at a training log and it tells you which failure you have, how
 it has cost you so far, and what to change.
 
 [![CI](https://github.com/junglezke/rl-doctor/actions/workflows/ci.yml/badge.svg)](https://github.com/junglezke/rl-doctor/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/rl-doctor.svg)](https://pypi.org/project/rl-doctor/)
-[![Python](https://img.shields.io/pypi/pyversions/rl-doctor.svg)](https://pypi.org/project/rl-doctor/)
+[![PyPI](https://img.shields.io/pypi/v/rldoctor.svg)](https://pypi.org/project/rldoctor/)
+[![Python](https://img.shields.io/pypi/pyversions/rldoctor.svg)](https://pypi.org/project/rldoctor/)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
 
@@ -49,12 +49,13 @@ papers. None of them is packaged as something you can run against your own job.
 No GPUs, no account, no training run:
 
 ```bash
-pip install rl-doctor
+pip install rldoctor
 rl-doctor demo reward_hacking
 ```
 
 Or the latest from `main`: `pip install git+https://github.com/junglezke/rl-doctor`.
-`rldoctor` works as a short alias for the command; it is also the name 0.1.0 shipped under.
+The PyPI package keeps its original name, `rldoctor`; the command is `rl-doctor`, and `rldoctor`
+works as a short alias for it.
 
 ```
    CRIT  Reward-eval divergence (verifier gaming)

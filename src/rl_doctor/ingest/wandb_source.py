@@ -34,7 +34,7 @@ def load_wandb(uri: str, samples: int = 10_000, api_key: Optional[str] = None):
         import wandb
     except ImportError as exc:  # pragma: no cover - depends on user env
         raise ImportError(
-            "reading W&B runs needs the wandb client: pip install 'rl-doctor[wandb]'"
+            "reading W&B runs needs the wandb client: pip install 'rldoctor[wandb]'"
         ) from exc
 
     parts = parse_uri(uri)
